@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_app/combons.dart';
 import 'package:to_do_app/views/widgets/bottom_appbar.dart';
 import 'package:to_do_app/views/widgets/custom_text_from_feild.dart';
@@ -61,9 +62,103 @@ class customDielog extends StatelessWidget {
               maxLines: 5,
             ),
             SizedBox(height: 8),
+            CustomRowElevatedButton()
           ]),
         ),
       ),
+    );
+  }
+}
+
+class CustomRowElevatedButton extends StatefulWidget {
+  const CustomRowElevatedButton({super.key});
+
+  @override
+  State<CustomRowElevatedButton> createState() =>
+      _CustomRowElevatedButtonState();
+}
+
+class _CustomRowElevatedButtonState extends State<CustomRowElevatedButton> {
+  DateTime? selectedDate = DateTime.now();
+
+  TimeOfDay? selectedTime = TimeOfDay.now();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        CustomElevatedButton(
+          icon: FontAwesomeIcons.calendar,
+          title: "${selectedDate!.toLocal()}".split(' ')[0],
+          selectedDate: selectedDate,
+          func: () async {
+            final DateTime? picked = await showDatePicker(
+              context: context,
+              initialDate: selectedDate!,
+              firstDate: DateTime(1949),
+              lastDate: DateTime(2100),
+            );
+            if (picked != null && picked != selectedDate) {
+              setState(() {
+                selectedDate = picked;
+              });
+            }
+          },
+        ),
+        SizedBox(
+          width: 55,
+        ),
+        CustomElevatedButton(
+          icon: FontAwesomeIcons.clock,
+          title: "${selectedTime?.hour} : ${selectedTime?.minute} ",
+          selectedDate: selectedTime,
+          func: () async {
+            final TimeOfDay? picked = await showTimePicker(
+                context: context, initialTime: selectedTime!);
+            if (picked != null && picked != selectedTime) {
+              setState(() {
+                selectedTime = picked;
+              });
+            }
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class CustomElevatedButton extends StatelessWidget {
+  const CustomElevatedButton(
+      {super.key,
+      required this.selectedDate,
+      required this.func,
+      required this.title,
+      required this.icon});
+  final dynamic selectedDate;
+  final VoidCallback func;
+  final dynamic title;
+  final IconData icon;
+  /*selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate!,
+      firstDate: DateTime(1949),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }*/
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [Icon(icon), SizedBox(width: 4), Text("$title")]),
+      onPressed: func,
     );
   }
 }
