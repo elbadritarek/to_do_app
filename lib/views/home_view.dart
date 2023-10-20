@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_app/combons.dart';
 import 'package:to_do_app/views/widgets/bottom_appbar.dart';
+import 'package:to_do_app/views/widgets/custom_add_button.dart';
 import 'package:to_do_app/views/widgets/custom_text_from_feild.dart';
 
 import 'widgets/home_veiw_body.dart';
@@ -62,7 +63,11 @@ class customDielog extends StatelessWidget {
               maxLines: 5,
             ),
             SizedBox(height: 8),
-            CustomRowElevatedButton()
+            CustomRowElevatedButton(),
+            SizedBox(height: 20),
+            CustomAddButton(
+              onTap: () => Navigator.pop(context),
+            )
           ]),
         ),
       ),

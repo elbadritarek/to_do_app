@@ -6,16 +6,16 @@ class customCelander extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        celanderItem(),
-        celanderItem(),
-        celanderItem(),
-        celanderItem(),
-        celanderItem(),
-        celanderItem(),
-        celanderItem(),
+        celanderItem(day: DateTime.now().subtract(const Duration(days: 3))),
+        celanderItem(day: DateTime.now().subtract(const Duration(days: 2))),
+        celanderItem(day: DateTime.now().subtract(const Duration(days: 1))),
+        celanderItem(day: DateTime.now()),
+        celanderItem(day: DateTime.now().add(const Duration(days: 1))),
+        celanderItem(day: DateTime.now().add(const Duration(days: 2))),
+        celanderItem(day: DateTime.now().add(const Duration(days: 3))),
       ],
     );
   }
