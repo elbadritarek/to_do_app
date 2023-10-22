@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_app/combons.dart';
+import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/widgets/bottom_appbar.dart';
 import 'package:to_do_app/views/widgets/custom_add_button.dart';
 import 'package:to_do_app/views/widgets/custom_text_from_feild.dart';
@@ -47,35 +48,116 @@ class customDielog extends StatelessWidget {
         child: SizedBox(
           height: 400,
           width: 300,
-          child: Column(children: [
-            // SizedBox(height: 8),
-            Text(
-              "New Task",
-              style: TextStyle(
-                  color: kprimary1Colour,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold),
-            ),
-            coustomTextFeild(hintText: "Title"),
-            SizedBox(height: 8),
-            coustomTextFeild(
-              hintText: "Descrption",
-              maxLines: 5,
-            ),
-            SizedBox(height: 8),
-            CustomRowElevatedButton(),
-            SizedBox(height: 20),
-            CustomAddButton(
-              onTap: () => Navigator.pop(context),
-            )
-          ]),
+          child: AddTaskFrom(),
         ),
       ),
     );
   }
 }
 
-class CustomRowElevatedButton extends StatefulWidget {
+class AddTaskFrom extends StatefulWidget {
+  const AddTaskFrom({
+    super.key,
+  });
+
+  @override
+  State<AddTaskFrom> createState() => _AddTaskFromState();
+}
+
+class _AddTaskFromState extends State<AddTaskFrom> {
+  final GlobalKey<FormState> fromKey = GlobalKey();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  String? title;
+  String? des;
+  DateTime? selectedDate = DateTime.now();
+
+  TimeOfDay? selectedTime = TimeOfDay.now();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: fromKey,
+      autovalidateMode: autovalidateMode,
+      child: Column(children: [
+        // SizedBox(height: 8),
+        Text(
+          "New Task",
+          style: TextStyle(
+              color: kprimary1Colour,
+              fontSize: 24,
+              fontWeight: FontWeight.bold),
+        ),
+        coustomTextFeild(
+          hintText: "Title",
+          onSaved: (data) {
+            title = data;
+          },
+        ),
+        SizedBox(height: 8),
+        coustomTextFeild(
+          hintText: "Descrption",
+          maxLines: 5,
+          onSaved: (data) {
+            des = data;
+          },
+        ),
+        SizedBox(height: 8),
+        Row(
+          children: [
+            CustomElevatedButton(
+              icon: FontAwesomeIcons.calendar,
+              title: "${selectedDate!.toLocal()}".split(' ')[0],
+              selectedDate: selectedDate,
+              func: () async {
+                final DateTime? picked = await showDatePicker(
+                  context: context,
+                  initialDate: selectedDate!,
+                  firstDate: DateTime(1949),
+                  lastDate: DateTime(2100),
+                );
+                if (picked != null && picked != selectedDate) {
+                  setState(() {
+                    selectedDate = picked;
+                  });
+                }
+              },
+            ),
+            SizedBox(
+              width: 55,
+            ),
+            CustomElevatedButton(
+              icon: FontAwesomeIcons.clock,
+              title: "${selectedTime?.hour} : ${selectedTime?.minute} ",
+              selectedDate: selectedTime,
+              func: () async {
+                final TimeOfDay? picked = await showTimePicker(
+                    context: context, initialTime: selectedTime!);
+                if (picked != null && picked != selectedTime) {
+                  setState(() {
+                    selectedTime = picked;
+                  });
+                }
+              },
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+        CustomAddButton(onTap: () {
+          if (fromKey.currentState!.validate()) {
+            fromKey.currentState!.save();
+            var taskModel = TaskModel(
+                title: title!,
+                descrption: des!,
+                dateTime: selectedDate!,
+                time: selectedTime!,
+                colour: Colors.blue.value);
+          }
+        })
+      ]),
+    );
+  }
+}
+
+/*class CustomRowElevatedButton extends StatefulWidget {
   const CustomRowElevatedButton({super.key});
 
   @override
@@ -130,7 +212,7 @@ class _CustomRowElevatedButtonState extends State<CustomRowElevatedButton> {
       ],
     );
   }
-}
+}*/
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton(
@@ -143,20 +225,6 @@ class CustomElevatedButton extends StatelessWidget {
   final VoidCallback func;
   final dynamic title;
   final IconData icon;
-  /*selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate!,
-      firstDate: DateTime(1949),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
