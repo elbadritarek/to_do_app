@@ -27,10 +27,10 @@ class celanderItem extends StatelessWidget {
             height: 12,
           ),
           Text("${day.day}", style: const TextStyle(fontSize: 18)),
-          SizedBox(height: 5),
+          SizedBox(height: 8),
           Text(
             "${DateFormat('MMMM').format(day)}",
-            style: TextStyle(fontSize: 12),
+            style: TextStyle(fontSize: 10),
           )
         ],
       ),

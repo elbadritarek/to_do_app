@@ -6,6 +6,7 @@ import 'package:to_do_app/views/home_view.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(TaskModelAdapter());
   var box = await Hive.openBox<TaskModel>(kTaskBox);
 
   runApp(const TodoApp());

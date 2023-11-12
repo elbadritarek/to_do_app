@@ -11,7 +11,7 @@ class honeViewBody extends StatelessWidget {
       children: [
         customCelander(),
         SizedBox(
-          height: 10,
+          height: 12,
         ),
         customTaskItem(),
       ],
