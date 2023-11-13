@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_app/combons.dart';
+import 'package:to_do_app/cubits/cubit/add_task_cubit.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/widgets/custom_add_button.dart';
 import 'package:to_do_app/views/widgets/custom_elevated_button.dart';
@@ -101,6 +103,10 @@ class _AddTaskFromState extends State<AddTaskFrom> {
                 dateTime: selectedDate!,
                 time: selectedTime!,
                 colour: Colors.blue.value);
+            BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
+          } else {
+            autovalidateMode = AutovalidateMode.always;
+            setState(() {});
           }
         })
       ]),
