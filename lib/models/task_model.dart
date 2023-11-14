@@ -15,7 +15,7 @@ class TaskModel {
   final TimeOfDay time;
   @HiveField(4)
   final int colour;
-
+  bool isDone = false;
   TaskModel({
     required this.title,
     required this.descrption,
