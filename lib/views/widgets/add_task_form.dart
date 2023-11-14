@@ -39,14 +39,14 @@ class _AddTaskFromState extends State<AddTaskFrom> {
               fontSize: 24,
               fontWeight: FontWeight.bold),
         ),
-        coustomTextFeild(
+        customTextFeild(
           hintText: "Title",
           onSaved: (data) {
             title = data;
           },
         ),
         SizedBox(height: 8),
-        coustomTextFeild(
+        customTextFeild(
           hintText: "Descrption",
           maxLines: 5,
           onSaved: (data) {

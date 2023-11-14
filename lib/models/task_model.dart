@@ -6,15 +6,15 @@ part 'task_model.g.dart';
 @HiveType(typeId: 1)
 class TaskModel {
   @HiveField(0)
-  final String title;
+  String title;
   @HiveField(1)
-  final String descrption;
+  String descrption;
   @HiveField(2)
-  final DateTime dateTime;
+  DateTime dateTime;
   @HiveField(3)
-  final TimeOfDay time;
+  TimeOfDay time;
   @HiveField(4)
-  final int colour;
+  int colour;
   bool isDone = false;
   TaskModel({
     required this.title,
