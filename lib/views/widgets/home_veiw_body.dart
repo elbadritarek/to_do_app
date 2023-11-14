@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive/hive.dart';
+import 'package:to_do_app/combons.dart';
 import 'package:to_do_app/cubits/cubit/task_cubit.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/widgets/custom_celander.dart';
@@ -44,8 +47,21 @@ class customListViewTask extends StatelessWidget {
         return ListView.builder(
           itemCount: taskList.length,
           itemBuilder: (BuildContext context, int index) {
-            return customTaskItem(
-              taskModel: taskList[index],
+            return Slidable(
+              endActionPane: ActionPane(motion: StretchMotion(), children: [
+                SlidableAction(
+                  icon: Icons.delete,
+                  label: "delete",
+                  onPressed: (context) {
+                    var taskBox = Hive.box<TaskModel>(kTaskBox);
+                    taskBox.deleteAt(index);
+                    BlocProvider.of<TaskCubit>(context).fatchAllTask();
+                  },
+                )
+              ]),
+              child: customTaskItem(
+                taskModel: taskList[index],
+              ),
             );
           },
         );
