@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_app/combons.dart';
+import 'package:to_do_app/models/task_model.dart';
 
 class customTaskItem extends StatelessWidget {
-  const customTaskItem({super.key});
+  const customTaskItem({super.key, required this.taskModel});
 
+  final TaskModel taskModel;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -36,13 +38,13 @@ class customTaskItem extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: 5),
-                      Text("Flutter study plan",
+                      Text("${taskModel.title}",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontStyle: FontStyle.italic)),
                       SizedBox(height: 5),
-                      Text("study flutter every day ",
+                      Text("${taskModel.descrption}",
                           style: TextStyle(color: Colors.black54)),
                       SizedBox(height: 5),
                     ],

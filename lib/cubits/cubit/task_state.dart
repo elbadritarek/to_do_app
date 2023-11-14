@@ -7,11 +7,7 @@ final class TaskInitial extends TaskState {}
 
 final class TaskLoading extends TaskState {}
 
-final class TaskSuccess extends TaskState {
-  final List<TaskModel> taskList;
-
-  TaskSuccess(this.taskList);
-}
+final class TaskSuccess extends TaskState {}
 
 final class TaskFailure extends TaskState {
   final String errMessage;

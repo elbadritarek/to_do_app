@@ -94,21 +94,27 @@ class _AddTaskFromState extends State<AddTaskFrom> {
           ],
         ),
         SizedBox(height: 20),
-        CustomAddButton(onTap: () {
-          if (fromKey.currentState!.validate()) {
-            fromKey.currentState!.save();
-            var taskModel = TaskModel(
-                title: title!,
-                descrption: des!,
-                dateTime: selectedDate!,
-                time: selectedTime!,
-                colour: Colors.blue.value);
-            BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
-          } else {
-            autovalidateMode = AutovalidateMode.always;
-            setState(() {});
-          }
-        })
+        BlocBuilder<AddTaskCubit, AddTaskState>(
+          builder: (context, state) {
+            return CustomAddButton(
+                isLoding: state is AddTaskLoading ? true : false,
+                onTap: () {
+                  if (fromKey.currentState!.validate()) {
+                    fromKey.currentState!.save();
+                    var taskModel = TaskModel(
+                        title: title!,
+                        descrption: des!,
+                        dateTime: selectedDate!,
+                        time: selectedTime!,
+                        colour: Colors.blue.value);
+                    BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                });
+          },
+        )
       ]),
     );
   }

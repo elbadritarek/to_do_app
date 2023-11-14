@@ -8,12 +8,13 @@ part 'task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskInitial());
-
+  List<TaskModel>? task;
   fatchAllTask() {
     emit(TaskLoading());
     try {
       var taskBox = Hive.box<TaskModel>(kTaskBox);
-      emit(TaskSuccess(taskBox.values.toList()));
+      task = taskBox.values.toList();
+      emit(TaskSuccess());
     } catch (e) {
       emit(TaskFailure(e.toString()));
     }
