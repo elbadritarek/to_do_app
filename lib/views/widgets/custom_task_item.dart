@@ -84,6 +84,29 @@ class _customTaskItemState extends State<customTaskItem> {
                       ),
                     ),
                   ),
+                  Container(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 5),
+                        Text(
+                            "${widget.taskModel.dateTime.day}/${widget.taskModel.dateTime.month}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                decoration: widget.taskModel.isDone
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                                color: Colors.black,
+                                //fontSize: 10,
+                                fontStyle: FontStyle.italic)),
+                        SizedBox(height: 5),
+                        Text(
+                            "${widget.taskModel.time.hour}:${widget.taskModel.time.minute}",
+                            style: TextStyle(color: Colors.black54)),
+                        SizedBox(height: 5),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16)
                 ],
               ),
             ),
