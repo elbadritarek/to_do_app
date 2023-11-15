@@ -49,6 +49,7 @@ class _customTaskItemState extends State<customTaskItem> {
               ),
               width: double.maxFinite,
               child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
                     height: 20,
@@ -61,23 +62,26 @@ class _customTaskItemState extends State<customTaskItem> {
                   SizedBox(
                     width: 8,
                   ),
-                  Container(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 5),
-                        Text("${widget.taskModel.title}",
-                            style: TextStyle(
-                                decoration: widget.taskModel.isDone
-                                    ? TextDecoration.lineThrough
-                                    : TextDecoration.none,
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontStyle: FontStyle.italic)),
-                        SizedBox(height: 5),
-                        Text("${widget.taskModel.descrption}",
-                            style: TextStyle(color: Colors.black54)),
-                        SizedBox(height: 5),
-                      ],
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 5),
+                          Text("${widget.taskModel.title}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  decoration: widget.taskModel.isDone
+                                      ? TextDecoration.lineThrough
+                                      : TextDecoration.none,
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontStyle: FontStyle.italic)),
+                          SizedBox(height: 5),
+                          Text("${widget.taskModel.descrption}",
+                              style: TextStyle(color: Colors.black54)),
+                          SizedBox(height: 5),
+                        ],
+                      ),
                     ),
                   ),
                 ],

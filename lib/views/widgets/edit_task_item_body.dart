@@ -93,6 +93,7 @@ class _EdtiTaskItemBodyState extends State<EdtiTaskItemBody> {
                 widget.taskModel.dateTime =
                     selectedDate ?? widget.taskModel.dateTime;
                 widget.taskModel.time = selectedTime ?? widget.taskModel.time;
+                widget.taskModel.save();
 
                 BlocProvider.of<TaskCubit>(context).fatchAllTask();
                 Navigator.pop(context);
