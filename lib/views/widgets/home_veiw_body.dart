@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hive/hive.dart';
-import 'package:to_do_app/combons.dart';
 import 'package:to_do_app/cubits/cubit/task_cubit.dart';
-import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/widgets/custom_celander.dart';
-import 'package:to_do_app/views/widgets/custom_task_item.dart';
+import 'package:to_do_app/views/widgets/custom_list_view_task.dart';
 
 class honeViewBody extends StatefulWidget {
   const honeViewBody({super.key});
@@ -22,50 +18,26 @@ class _honeViewBodyState extends State<honeViewBody> {
     super.initState();
   }
 
+  DateTime date = DateTime.now();
+  void upDateDate(DateTime dateTime) {
+    setState(() {
+      date = dateTime;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        customCelander(),
+        customCelander(updateData: upDateDate),
         SizedBox(
           height: 12,
         ),
-        Expanded(child: customListViewTask()),
+        Expanded(
+            child: customListViewTask(
+          dateTime: date,
+        )),
       ],
-    );
-  }
-}
-
-class customListViewTask extends StatelessWidget {
-  const customListViewTask({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<TaskCubit, TaskState>(
-      builder: (context, state) {
-        List<TaskModel> taskList = BlocProvider.of<TaskCubit>(context).task!;
-        return ListView.builder(
-          itemCount: taskList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Slidable(
-              endActionPane: ActionPane(motion: StretchMotion(), children: [
-                SlidableAction(
-                  icon: Icons.delete,
-                  label: "delete",
-                  onPressed: (context) {
-                    var taskBox = Hive.box<TaskModel>(kTaskBox);
-                    taskBox.deleteAt(index);
-                    BlocProvider.of<TaskCubit>(context).fatchAllTask();
-                  },
-                )
-              ]),
-              child: customTaskItem(
-                taskModel: taskList[index],
-              ),
-            );
-          },
-        );
-      },
     );
   }
 }
