@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:to_do_app/combons.dart';
 
 class bottomAppBar extends StatefulWidget {
-  const bottomAppBar({super.key});
-
+  const bottomAppBar({super.key, required this.control});
+  final PageController control;
   @override
   State<bottomAppBar> createState() => _bottomAppBarState();
 }
@@ -31,6 +31,8 @@ class _bottomAppBarState extends State<bottomAppBar> {
             color: selectIndex == 0 ? kprimary2Colour : Colors.white,
             child: IconButton(
                 onPressed: () {
+                  widget.control.animateToPage(0,
+                      duration: Duration(seconds: 1), curve: Curves.easeInOut);
                   selectIndex == 0;
                   setState(() {
                     selectIndex = 0;
@@ -48,6 +50,9 @@ class _bottomAppBarState extends State<bottomAppBar> {
             color: selectIndex == 1 ? kprimary2Colour : Colors.white,
             child: IconButton(
                 onPressed: () {
+                  widget.control.animateToPage(1,
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeInOut);
                   selectIndex == 1;
                   setState(() {
                     selectIndex = 1;
@@ -65,6 +70,9 @@ class _bottomAppBarState extends State<bottomAppBar> {
             color: selectIndex == 2 ? kprimary2Colour : Colors.white,
             child: IconButton(
                 onPressed: () {
+                  widget.control.animateToPage(2,
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeInOut);
                   selectIndex == 2;
                   setState(() {
                     selectIndex = 2;
@@ -82,6 +90,9 @@ class _bottomAppBarState extends State<bottomAppBar> {
             color: selectIndex == 3 ? kprimary2Colour : Colors.white,
             child: IconButton(
                 onPressed: () {
+                  widget.control.animateToPage(3,
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeInOut);
                   selectIndex == 3;
                   setState(() {
                     selectIndex = 3;

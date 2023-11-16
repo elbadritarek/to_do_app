@@ -5,15 +5,32 @@ import 'package:to_do_app/views/widgets/custom_dielog.dart';
 
 import 'widgets/home_veiw_body.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final PageController control = PageController(initialPage: 0);
+  @override
+  void dispose() {
+    control.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const honeViewBody(),
-      bottomNavigationBar: const bottomAppBar(),
+      body: PageView(
+          controller: control,
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            const honeViewBody(),
+          ]),
+      bottomNavigationBar: bottomAppBar(control: control),
       floatingActionButton: FloatingActionButton(
         backgroundColor: kprimary1Colour,
         child: Icon(Icons.add),
