@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:to_do_app/combons.dart';
 import 'package:to_do_app/views/widgets/bottom_appbar.dart';
 import 'package:to_do_app/views/widgets/custom_dielog.dart';
+import 'package:to_do_app/views/widgets/custom_list_view_task.dart';
 
 import 'widgets/home_veiw_body.dart';
 
@@ -27,8 +29,9 @@ class _HomeViewState extends State<HomeView> {
       body: PageView(
           controller: control,
           physics: NeverScrollableScrollPhysics(),
-          children: [
-            const honeViewBody(),
+          children: const [
+            honeViewBody(),
+            celanderViewBody(),
           ]),
       bottomNavigationBar: bottomAppBar(control: control),
       floatingActionButton: FloatingActionButton(
@@ -105,3 +108,43 @@ class _CustomRowElevatedButtonState extends State<CustomRowElevatedButton> {
   }
 }*/
 
+class celanderViewBody extends StatefulWidget {
+  const celanderViewBody({super.key});
+
+  @override
+  State<celanderViewBody> createState() => _celanderViewBodyState();
+}
+
+class _celanderViewBodyState extends State<celanderViewBody> {
+  DateTime? _selectedDay = DateTime.now();
+
+  @override
+  Widget build(BuildContext context) {
+    return TableCalendar(
+        firstDay: DateTime.utc(1900),
+        lastDay: DateTime.utc(2100),
+        focusedDay: _selectedDay!,
+        selectedDayPredicate: (day) {
+          return isSameDay(_selectedDay, day);
+        },
+        onDaySelected: (selectedDay, focusedDay) {
+          setState(() {
+            _selectedDay = selectedDay;
+            // _focusedDay = focusedDay; // update `_focusedDay` here as well
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return Scaffold(
+                    appBar: AppBar(
+                      title:
+                          Text("${_selectedDay!.day}/${_selectedDay!.month}"),
+                      centerTitle: true,
+                    ),
+                    body: Padding(
+                        padding: EdgeInsets.only(top: 8),
+                        child: customListViewTask(dateTime: _selectedDay!)));
+              },
+            ));
+          });
+        });
+  }
+}
