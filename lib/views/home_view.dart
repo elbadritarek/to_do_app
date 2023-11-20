@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive/hive.dart';
 import 'package:to_do_app/combons.dart';
+import 'package:to_do_app/cubits/cubit/task_cubit.dart';
+import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/widgets/bottom_appbar.dart';
+import 'package:to_do_app/views/widgets/celander_view_body.dart';
 import 'package:to_do_app/views/widgets/custom_dielog.dart';
-import 'package:to_do_app/views/widgets/custom_list_view_task.dart';
+import 'package:to_do_app/views/widgets/custom_task_item.dart';
 
 import 'widgets/home_veiw_body.dart';
 
@@ -32,6 +37,8 @@ class _HomeViewState extends State<HomeView> {
           children: const [
             honeViewBody(),
             celanderViewBody(),
+            celanderViewBody(),
+            allTaskViewBody(),
           ]),
       bottomNavigationBar: bottomAppBar(control: control),
       floatingActionButton: FloatingActionButton(
@@ -50,6 +57,56 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
+
+class allTaskViewBody extends StatelessWidget {
+  const allTaskViewBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TaskCubit, TaskState>(
+      builder: (context, state) {
+        List<TaskModel> taskList = BlocProvider.of<TaskCubit>(context).task!;
+        return Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: ListView.builder(
+              itemCount: taskList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Slidable(
+                    endActionPane:
+                        ActionPane(motion: StretchMotion(), children: [
+                      SlidableAction(
+                        icon: Icons.delete,
+                        label: "delete",
+                        onPressed: (context) {
+                          var taskBox = Hive.box<TaskModel>(kTaskBox);
+                          taskBox.deleteAt(index);
+                          BlocProvider.of<TaskCubit>(context).fatchAllTask();
+                        },
+                      )
+                    ]),
+                    child: customTaskItem(
+                      taskModel: taskList[index],
+                    ));
+              }),
+        );
+      },
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*class CustomRowElevatedButton extends StatefulWidget {
   const CustomRowElevatedButton({super.key});
@@ -108,43 +165,3 @@ class _CustomRowElevatedButtonState extends State<CustomRowElevatedButton> {
   }
 }*/
 
-class celanderViewBody extends StatefulWidget {
-  const celanderViewBody({super.key});
-
-  @override
-  State<celanderViewBody> createState() => _celanderViewBodyState();
-}
-
-class _celanderViewBodyState extends State<celanderViewBody> {
-  DateTime? _selectedDay = DateTime.now();
-
-  @override
-  Widget build(BuildContext context) {
-    return TableCalendar(
-        firstDay: DateTime.utc(1900),
-        lastDay: DateTime.utc(2100),
-        focusedDay: _selectedDay!,
-        selectedDayPredicate: (day) {
-          return isSameDay(_selectedDay, day);
-        },
-        onDaySelected: (selectedDay, focusedDay) {
-          setState(() {
-            _selectedDay = selectedDay;
-            // _focusedDay = focusedDay; // update `_focusedDay` here as well
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) {
-                return Scaffold(
-                    appBar: AppBar(
-                      title:
-                          Text("${_selectedDay!.day}/${_selectedDay!.month}"),
-                      centerTitle: true,
-                    ),
-                    body: Padding(
-                        padding: EdgeInsets.only(top: 8),
-                        child: customListViewTask(dateTime: _selectedDay!)));
-              },
-            ));
-          });
-        });
-  }
-}

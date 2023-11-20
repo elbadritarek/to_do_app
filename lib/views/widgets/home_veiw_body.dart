@@ -29,6 +29,7 @@ class _honeViewBodyState extends State<honeViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        //       coustomAppBar(title: "To Do"),
         customCelander(updateData: upDateDate),
         SizedBox(
           height: 12,
@@ -41,3 +42,33 @@ class _honeViewBodyState extends State<honeViewBody> {
     );
   }
 }
+
+/*class coustomAppBar extends StatelessWidget {
+  const coustomAppBar({
+    super.key,
+    required this.title,
+    /*required this.icon*/
+  });
+  final String title;
+  //final IconData icon;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 56,
+      color: Colors.blue,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 28,
+            ),
+          ),
+          //const Spacer(),
+          // coustomButtomShearch(icon: icon),
+        ],
+      ),
+    );
+  }
+}*/

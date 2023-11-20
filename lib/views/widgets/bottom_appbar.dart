@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:to_do_app/combons.dart';
 
 class bottomAppBar extends StatefulWidget {
@@ -99,7 +100,7 @@ class _bottomAppBarState extends State<bottomAppBar> {
                   });
                 },
                 icon: Icon(
-                  Icons.person,
+                  FontAwesomeIcons.listCheck,
                   size: 30,
                 )),
           ),
