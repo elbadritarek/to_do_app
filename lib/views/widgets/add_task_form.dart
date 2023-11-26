@@ -117,6 +117,7 @@ class _AddTaskFromState extends State<AddTaskFrom> {
                         selectedDate!.day,
                         selectedTime!.hour,
                         selectedTime!.minute);
+
                     tz.initializeTimeZones();
                     var scheduledDate = tz.TZDateTime.from(
                         s.add(const Duration(seconds: 10)),
