@@ -5,11 +5,13 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class NotificationServices {
   final FlutterLocalNotificationsPlugin notificationPlugin =
       FlutterLocalNotificationsPlugin();
-
+  AndroidFlutterLocalNotificationsPlugin
+      androidFlutterLocalNotificationsPlugin =
+      AndroidFlutterLocalNotificationsPlugin();
   Future<void> initNotification() async {
     AndroidInitializationSettings androidInitializationSettings =
         const AndroidInitializationSettings("flutter_logo");
-
+    androidFlutterLocalNotificationsPlugin.requestExactAlarmsPermission();
     var initializationSettingsIos = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
