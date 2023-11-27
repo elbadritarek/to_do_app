@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:to_do_app/combons.dart';
+import 'package:to_do_app/cubits/cubit/notification_cubit.dart';
 import 'package:to_do_app/cubits/cubit/task_cubit.dart';
 import 'package:to_do_app/models/task_model.dart';
 import 'package:to_do_app/views/widgets/bottom_appbar.dart';
@@ -37,7 +38,7 @@ class _HomeViewState extends State<HomeView> {
           children: const [
             honeViewBody(),
             celanderViewBody(),
-            celanderViewBody(),
+            NotificationViewBody(),
             allTaskViewBody(),
           ]),
       bottomNavigationBar: bottomAppBar(control: control),
@@ -94,18 +95,65 @@ class allTaskViewBody extends StatelessWidget {
   }
 }
 
+class NotificationViewBody extends StatelessWidget {
+  const NotificationViewBody({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        //       coustomAppBar(title: "To Do"),
 
+        SizedBox(
+          height: 12,
+        ),
+        Expanded(child: customListViewNotification()),
+      ],
+    );
+  }
+}
 
+class customListViewNotification extends StatelessWidget {
+  const customListViewNotification({super.key});
 
-
-
-
-
-
-
-
-
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotificationCubit, NotificationState>(
+        builder: (context, state) {
+      List<TaskModel> taskList =
+          BlocProvider.of<NotificationCubit>(context).task ??
+              [
+                TaskModel(
+                    title: "title",
+                    descrption: "descrption",
+                    dateTime: DateTime.now(),
+                    time: TimeOfDay.now(),
+                    colour: 1)
+              ];
+      return ListView.builder(
+        itemCount: taskList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Slidable(
+              endActionPane: ActionPane(motion: StretchMotion(), children: [
+                SlidableAction(
+                  icon: Icons.delete,
+                  label: "delete",
+                  onPressed: (context) {
+                    var taskBox = Hive.box<TaskModel>(kNotificatonBox);
+                    taskBox.deleteAt(index);
+                    BlocProvider.of<NotificationCubit>(context)
+                        .fatchAllNotification();
+                  },
+                )
+              ]),
+              child: customTaskItem(
+                taskModel: taskList[index],
+              ));
+        },
+      );
+    });
+  }
+}
 
 
 /*class CustomRowElevatedButton extends StatefulWidget {
@@ -164,4 +212,3 @@ class _CustomRowElevatedButtonState extends State<CustomRowElevatedButton> {
     );
   }
 }*/
-

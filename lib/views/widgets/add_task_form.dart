@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'package:to_do_app/combons.dart';
+import 'package:to_do_app/cubits/cubit/add_notification_cubit.dart';
 import 'package:to_do_app/cubits/cubit/add_task_cubit.dart';
 import 'package:to_do_app/models/task_model.dart';
-import 'package:to_do_app/services/notifi_service.dart';
 import 'package:to_do_app/views/widgets/custom_add_button.dart';
 import 'package:to_do_app/views/widgets/custom_elevated_button.dart';
 import 'package:to_do_app/views/widgets/custom_text_from_feild.dart';
@@ -111,33 +108,10 @@ class _AddTaskFromState extends State<AddTaskFrom> {
                         dateTime: selectedDate!,
                         time: selectedTime!,
                         colour: Colors.blue.value);
-                    DateTime s = DateTime(
-                        selectedDate!.year,
-                        selectedDate!.month,
-                        selectedDate!.day,
-                        selectedTime!.hour,
-                        selectedTime!.minute);
-
-                    tz.initializeTimeZones();
-                    var scheduledDate = tz.TZDateTime.from(
-                        s.add(const Duration(seconds: 10)),
-                        tz.getLocation("Africa/Tripoli"));
-                    if (scheduledDate.isAfter(
-                        tz.TZDateTime.now(tz.getLocation("Africa/Tripoli")))) {
-                      NotificationServices().initNotification();
-
-                      await NotificationServices()
-                          .notificationPlugin
-                          .zonedSchedule(0, title!, des!, scheduledDate,
-                              NotificationServices().notificationDetails(),
-                              androidScheduleMode: AndroidScheduleMode
-                                  .exactAllowWhileIdle,
-                              uiLocalNotificationDateInterpretation:
-                                  UILocalNotificationDateInterpretation
-                                      .absoluteTime);
-                    } else {}
-
+                    TaskModel notificationModel = taskModel;
                     BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
+                    BlocProvider.of<AddNotificationCubit>(context)
+                        .addNotification(notificationModel);
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});

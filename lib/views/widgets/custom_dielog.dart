@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/combons.dart';
+import 'package:to_do_app/cubits/cubit/add_notification_cubit.dart';
 import 'package:to_do_app/cubits/cubit/add_task_cubit.dart';
+import 'package:to_do_app/cubits/cubit/notification_cubit.dart';
 import 'package:to_do_app/cubits/cubit/task_cubit.dart';
 import 'package:to_do_app/views/widgets/add_task_form.dart';
 
@@ -9,15 +11,24 @@ class customDielog extends StatelessWidget {
   const customDielog({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AddTaskCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AddTaskCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AddNotificationCubit(),
+        ),
+      ],
       child: BlocConsumer<AddTaskCubit, AddTaskState>(
         listener: (context, state) {
           if (state is AddTaskFailure) {
             print("fail");
           } else if (state is AddTaskSuccess) {
             BlocProvider.of<TaskCubit>(context).fatchAllTask();
+
             Navigator.of(context).pop();
+            BlocProvider.of<NotificationCubit>(context).fatchAllNotification();
           }
         },
         builder: (context, state) {
