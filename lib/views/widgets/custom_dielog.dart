@@ -21,14 +21,13 @@ class customDielog extends StatelessWidget {
         ),
       ],
       child: BlocConsumer<AddTaskCubit, AddTaskState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is AddTaskFailure) {
             print("fail");
           } else if (state is AddTaskSuccess) {
             BlocProvider.of<TaskCubit>(context).fatchAllTask();
-
-            Navigator.of(context).pop();
             BlocProvider.of<NotificationCubit>(context).fatchAllNotification();
+            Navigator.of(context).pop();
           }
         },
         builder: (context, state) {

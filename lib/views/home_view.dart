@@ -95,8 +95,19 @@ class allTaskViewBody extends StatelessWidget {
   }
 }
 
-class NotificationViewBody extends StatelessWidget {
+class NotificationViewBody extends StatefulWidget {
   const NotificationViewBody({super.key});
+
+  @override
+  State<NotificationViewBody> createState() => _NotificationViewBodyState();
+}
+
+class _NotificationViewBodyState extends State<NotificationViewBody> {
+  @override
+  void initState() {
+    BlocProvider.of<NotificationCubit>(context).fatchAllNotification();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +115,6 @@ class NotificationViewBody extends StatelessWidget {
       children: [
         //       coustomAppBar(title: "To Do"),
 
-        SizedBox(
-          height: 12,
-        ),
         Expanded(child: customListViewNotification()),
       ],
     );
@@ -120,37 +128,35 @@ class customListViewNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
-      List<TaskModel> taskList =
-          BlocProvider.of<NotificationCubit>(context).task ??
-              [
-                TaskModel(
-                    title: "title",
-                    descrption: "descrption",
-                    dateTime: DateTime.now(),
-                    time: TimeOfDay.now(),
-                    colour: 1)
-              ];
-      return ListView.builder(
-        itemCount: taskList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Slidable(
-              endActionPane: ActionPane(motion: StretchMotion(), children: [
-                SlidableAction(
-                  icon: Icons.delete,
-                  label: "delete",
-                  onPressed: (context) {
-                    var taskBox = Hive.box<TaskModel>(kNotificatonBox);
-                    taskBox.deleteAt(index);
-                    BlocProvider.of<NotificationCubit>(context)
-                        .fatchAllNotification();
-                  },
-                )
-              ]),
-              child: customTaskItem(
-                taskModel: taskList[index],
-              ));
-        },
-      );
+      if (BlocProvider.of<NotificationCubit>(context).task != null) {
+        List<TaskModel> taskList =
+            BlocProvider.of<NotificationCubit>(context).task!;
+        return ListView.builder(
+          itemCount: taskList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Slidable(
+                endActionPane: ActionPane(motion: StretchMotion(), children: [
+                  SlidableAction(
+                    icon: Icons.delete,
+                    label: "delete",
+                    onPressed: (context) {
+                      var taskBox = Hive.box<TaskModel>(kNotificatonBox);
+                      taskBox.deleteAt(index);
+                      BlocProvider.of<NotificationCubit>(context)
+                          .fatchAllNotification();
+                    },
+                  )
+                ]),
+                child: customTaskItem(
+                  taskModel: taskList[index],
+                ));
+          },
+        );
+      } else {
+        return Center(
+          child: Text("No notifications"),
+        );
+      }
     });
   }
 }

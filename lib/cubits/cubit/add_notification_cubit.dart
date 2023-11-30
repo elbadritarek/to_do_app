@@ -13,7 +13,8 @@ part 'add_notification_state.dart';
 class AddNotificationCubit extends Cubit<AddNotificationState> {
   AddNotificationCubit() : super(AddNotificationInitial());
 
-  void showNotification(TaskModel task, tz.TZDateTime scheduledDate) async {
+  Future<void> showNotification(
+      TaskModel task, tz.TZDateTime scheduledDate) async {
     await NotificationServices().notificationPlugin.zonedSchedule(
         0,
         task.title,
@@ -25,8 +26,15 @@ class AddNotificationCubit extends Cubit<AddNotificationState> {
             UILocalNotificationDateInterpretation.absoluteTime);
   }
 
-  void addNotifi(var notificationBox, TaskModel notificationTask) async {
-    await notificationBox.add(notificationTask);
+  Future<void> addNotifi(
+      var notificationBox, TaskModel notificationTask) async {
+    DateTime timeNotif = DateTime.now();
+    DateTime timeTask = notificationTask.dateTime;
+    Duration time = timeNotif.difference(timeTask);
+
+    Future.delayed(time, () async {
+      await notificationBox.add(notificationTask);
+    });
   }
 
   addNotification(TaskModel notificationTask) async {
@@ -46,8 +54,9 @@ class AddNotificationCubit extends Cubit<AddNotificationState> {
       if (scheduledDate
           .isAfter(tz.TZDateTime.now(tz.getLocation("Africa/Tripoli")))) {
         NotificationServices().initNotification();
+
         await Future.wait([
-          showNotification(notificationTask, scheduledDate),
+          await showNotification(notificationTask, scheduledDate),
           addNotifi(notificationBox, notificationTask),
         ] as Iterable<Future>);
       } else {}
