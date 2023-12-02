@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do_app/combons.dart';
 
 class celanderItem extends StatelessWidget {
   const celanderItem(
@@ -19,9 +18,9 @@ class celanderItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: isSelected ? kprimary1Colour : Colors.white,
+            color: isSelected ? Color(0xff7B66FF) : Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(9))),
-        height: 80,
+        height: 90,
         width: 50,
         child: Column(
           children: [
@@ -29,21 +28,21 @@ class celanderItem extends StatelessWidget {
               height: 10,
             ),
             Text("${nameDay[0]}${nameDay[1]}${nameDay[2]}",
-                style:
-                    TextStyle(color: isSelected ? Colors.white : Colors.black)),
+                style: TextStyle(
+                    color: isSelected ? Color(0xff96EFFF) : Colors.black)),
             const SizedBox(
               height: 12,
             ),
             Text("${day.day}",
                 style: TextStyle(
                     fontSize: 18,
-                    color: isSelected ? Colors.white : Colors.black)),
-            SizedBox(height: 8),
+                    color: isSelected ? Color(0xff96EFFF) : Colors.black)),
+            SizedBox(height: 5),
             Text(
               "${DateFormat('MMMM').format(day)}",
               style: TextStyle(
                   fontSize: 10,
-                  color: isSelected ? Colors.white : Colors.black),
+                  color: isSelected ? Color(0xff96EFFF) : Colors.black),
             )
           ],
         ),

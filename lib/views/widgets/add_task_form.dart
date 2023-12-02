@@ -76,7 +76,7 @@ class _AddTaskFromState extends State<AddTaskFrom> {
               },
             ),
             SizedBox(
-              width: 55,
+              width: 20,
             ),
             CustomElevatedButton(
               icon: FontAwesomeIcons.clock,

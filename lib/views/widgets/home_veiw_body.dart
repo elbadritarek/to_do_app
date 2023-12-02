@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/combons.dart';
 import 'package:to_do_app/cubits/cubit/task_cubit.dart';
 import 'package:to_do_app/views/widgets/custom_celander.dart';
 import 'package:to_do_app/views/widgets/custom_list_view_task.dart';
@@ -29,11 +30,9 @@ class _honeViewBodyState extends State<honeViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //       coustomAppBar(title: "To Do"),
+        coustomAppBar(title: "ToDo App"),
+        SizedBox(height: 5),
         customCelander(updateData: upDateDate),
-        SizedBox(
-          height: 12,
-        ),
         Expanded(
             child: customListViewTask(
           dateTime: date,
@@ -43,7 +42,7 @@ class _honeViewBodyState extends State<honeViewBody> {
   }
 }
 
-/*class coustomAppBar extends StatelessWidget {
+class coustomAppBar extends StatelessWidget {
   const coustomAppBar({
     super.key,
     required this.title,
@@ -53,22 +52,15 @@ class _honeViewBodyState extends State<honeViewBody> {
   //final IconData icon;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      color: Colors.blue,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 28,
-            ),
-          ),
-          //const Spacer(),
-          // coustomButtomShearch(icon: icon),
-        ],
+    return AppBar(
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 25,
+        ),
       ),
+      centerTitle: true,
+      backgroundColor: kprimary1Colour,
     );
   }
-}*/
+}

@@ -55,10 +55,8 @@ class AddNotificationCubit extends Cubit<AddNotificationState> {
           .isAfter(tz.TZDateTime.now(tz.getLocation("Africa/Tripoli")))) {
         NotificationServices().initNotification();
 
-        await Future.wait([
-          await showNotification(notificationTask, scheduledDate),
-          addNotifi(notificationBox, notificationTask),
-        ] as Iterable<Future>);
+        await showNotification(notificationTask, scheduledDate);
+        addNotifi(notificationBox, notificationTask);
       } else {}
       emit(AddNotificationSuccess());
     } catch (e) {

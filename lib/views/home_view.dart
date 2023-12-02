@@ -31,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(backgroundColor: Colors.blue),
       body: PageView(
           controller: control,
           physics: NeverScrollableScrollPhysics(),
@@ -67,28 +67,33 @@ class allTaskViewBody extends StatelessWidget {
     return BlocBuilder<TaskCubit, TaskState>(
       builder: (context, state) {
         List<TaskModel> taskList = BlocProvider.of<TaskCubit>(context).task!;
-        return Padding(
-          padding: EdgeInsets.only(top: 8),
-          child: ListView.builder(
-              itemCount: taskList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Slidable(
-                    endActionPane:
-                        ActionPane(motion: StretchMotion(), children: [
-                      SlidableAction(
-                        icon: Icons.delete,
-                        label: "delete",
-                        onPressed: (context) {
-                          var taskBox = Hive.box<TaskModel>(kTaskBox);
-                          taskBox.deleteAt(index);
-                          BlocProvider.of<TaskCubit>(context).fatchAllTask();
-                        },
-                      )
-                    ]),
-                    child: customTaskItem(
-                      taskModel: taskList[index],
-                    ));
-              }),
+        return Column(
+          children: [
+            coustomAppBar(title: "ALL TASK"),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: taskList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Slidable(
+                        endActionPane:
+                            ActionPane(motion: StretchMotion(), children: [
+                          SlidableAction(
+                            icon: Icons.delete,
+                            label: "delete",
+                            onPressed: (context) {
+                              var taskBox = Hive.box<TaskModel>(kTaskBox);
+                              taskBox.deleteAt(index);
+                              BlocProvider.of<TaskCubit>(context)
+                                  .fatchAllTask();
+                            },
+                          )
+                        ]),
+                        child: customTaskItem(
+                          taskModel: taskList[index],
+                        ));
+                  }),
+            ),
+          ],
         );
       },
     );
@@ -113,8 +118,7 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //       coustomAppBar(title: "To Do"),
-
+        coustomAppBar(title: "NOTIFICATION"),
         Expanded(child: customListViewNotification()),
       ],
     );
@@ -128,35 +132,29 @@ class customListViewNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
-      if (BlocProvider.of<NotificationCubit>(context).task != null) {
-        List<TaskModel> taskList =
-            BlocProvider.of<NotificationCubit>(context).task!;
-        return ListView.builder(
-          itemCount: taskList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Slidable(
-                endActionPane: ActionPane(motion: StretchMotion(), children: [
-                  SlidableAction(
-                    icon: Icons.delete,
-                    label: "delete",
-                    onPressed: (context) {
-                      var taskBox = Hive.box<TaskModel>(kNotificatonBox);
-                      taskBox.deleteAt(index);
-                      BlocProvider.of<NotificationCubit>(context)
-                          .fatchAllNotification();
-                    },
-                  )
-                ]),
-                child: customTaskItem(
-                  taskModel: taskList[index],
-                ));
-          },
-        );
-      } else {
-        return Center(
-          child: Text("No notifications"),
-        );
-      }
+      List<TaskModel> taskList =
+          BlocProvider.of<NotificationCubit>(context).task!;
+      return ListView.builder(
+        itemCount: taskList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Slidable(
+              endActionPane: ActionPane(motion: StretchMotion(), children: [
+                SlidableAction(
+                  icon: Icons.delete,
+                  label: "delete",
+                  onPressed: (context) {
+                    var taskBox = Hive.box<TaskModel>(kNotificatonBox);
+                    taskBox.deleteAt(index);
+                    BlocProvider.of<NotificationCubit>(context)
+                        .fatchAllNotification();
+                  },
+                )
+              ]),
+              child: customTaskItem(
+                taskModel: taskList[index],
+              ));
+        },
+      );
     });
   }
 }

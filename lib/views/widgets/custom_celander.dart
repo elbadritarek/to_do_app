@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/combons.dart';
 import 'package:to_do_app/views/widgets/celander_item.dart';
 
 class customCelander extends StatefulWidget {
@@ -17,8 +16,8 @@ class _customCelanderState extends State<customCelander> {
       AnimatedPositioned(
           child: Container(
             height: 80,
-            width: 50,
-            color: kprimary2Colour,
+            width: 1,
+            color: Color(0xffF4F27E),
           ),
           duration: Duration(milliseconds: 500),
           curve: Curves.easeInOut),
