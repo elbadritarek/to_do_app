@@ -14,10 +14,10 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      onPressed: func,
       child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [Icon(icon), SizedBox(width: 4), Text("$title")]),
-      onPressed: func,
+          children: [Icon(icon), const SizedBox(width: 4), Text("$title")]),
     );
   }
 }

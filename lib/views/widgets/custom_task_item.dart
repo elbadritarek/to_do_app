@@ -37,12 +37,12 @@ class _customTaskItemState extends State<customTaskItem> {
                 }
               },
               icon: widget.taskModel.isDone
-                  ? Icon(FontAwesomeIcons.circleCheck)
-                  : Icon(FontAwesomeIcons.circle)),
+                  ? const Icon(FontAwesomeIcons.circleCheck)
+                  : const Icon(FontAwesomeIcons.circle)),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(right: 11, bottom: 8),
-              padding: EdgeInsets.only(left: 5),
+              margin: const EdgeInsets.only(right: 11, bottom: 8),
+              padding: const EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
                 color: kprimary2Colour,
                 borderRadius: BorderRadius.circular(8),
@@ -51,7 +51,7 @@ class _customTaskItemState extends State<customTaskItem> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                     child: VerticalDivider(
                       color: kprimary1Colour,
@@ -59,7 +59,7 @@ class _customTaskItemState extends State<customTaskItem> {
                       width: 5,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Expanded(
@@ -84,29 +84,27 @@ class _customTaskItemState extends State<customTaskItem> {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 5),
-                        Text(
-                            "${widget.taskModel.dateTime.day}/${widget.taskModel.dateTime.month}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                decoration: widget.taskModel.isDone
-                                    ? TextDecoration.lineThrough
-                                    : TextDecoration.none,
-                                color: Colors.black,
-                                //fontSize: 10,
-                                fontStyle: FontStyle.italic)),
-                        SizedBox(height: 5),
-                        Text(
-                            "${widget.taskModel.time.hour}:${widget.taskModel.time.minute}",
-                            style: TextStyle(color: Colors.black54)),
-                        SizedBox(height: 5),
-                      ],
-                    ),
+                  Column(
+                    children: [
+                      const SizedBox(height: 5),
+                      Text(
+                          "${widget.taskModel.dateTime.day}/${widget.taskModel.dateTime.month}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              decoration: widget.taskModel.isDone
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                              color: Colors.black,
+                              //fontSize: 10,
+                              fontStyle: FontStyle.italic)),
+                      const SizedBox(height: 5),
+                      Text(
+                          "${widget.taskModel.time.hour}:${widget.taskModel.time.minute}",
+                          style: const TextStyle(color: Colors.black54)),
+                      const SizedBox(height: 5),
+                    ],
                   ),
-                  SizedBox(width: 16)
+                  const SizedBox(width: 16)
                 ],
               ),
             ),

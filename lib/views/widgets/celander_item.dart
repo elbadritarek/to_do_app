@@ -18,8 +18,8 @@ class celanderItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: isSelected ? Color(0xff7B66FF) : Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(9))),
+            color: isSelected ? const Color(0xff7B66FF) : Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(9))),
         height: 90,
         width: 50,
         child: Column(
@@ -29,7 +29,8 @@ class celanderItem extends StatelessWidget {
             ),
             Text("${nameDay[0]}${nameDay[1]}${nameDay[2]}",
                 style: TextStyle(
-                    color: isSelected ? Color(0xff96EFFF) : Colors.black)),
+                    color:
+                        isSelected ? const Color(0xff96EFFF) : Colors.black)),
             const SizedBox(
               height: 12,
             ),
@@ -37,12 +38,12 @@ class celanderItem extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 18,
                     color: isSelected ? Color(0xff96EFFF) : Colors.black)),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
-              "${DateFormat('MMMM').format(day)}",
+              DateFormat('MMMM').format(day),
               style: TextStyle(
                   fontSize: 10,
-                  color: isSelected ? Color(0xff96EFFF) : Colors.black),
+                  color: isSelected ? const Color(0xff96EFFF) : Colors.black),
             )
           ],
         ),

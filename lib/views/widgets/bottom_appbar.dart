@@ -25,7 +25,7 @@ class _bottomAppBarState extends State<bottomAppBar> {
           curve: Curves.easeInOut),*/
       Row(
         children: [
-          Spacer(flex: 1),
+          const Spacer(flex: 1),
           Container(
             height: 50,
             width: 60,
@@ -33,18 +33,19 @@ class _bottomAppBarState extends State<bottomAppBar> {
             child: IconButton(
                 onPressed: () {
                   widget.control.animateToPage(0,
-                      duration: Duration(seconds: 1), curve: Curves.easeInOut);
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeInOut);
                   selectIndex == 0;
                   setState(() {
                     selectIndex = 0;
                   });
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.home,
                   size: 30,
                 )),
           ),
-          Spacer(flex: 2),
+          const Spacer(flex: 2),
           Container(
             height: 50,
             width: 60,
@@ -59,12 +60,12 @@ class _bottomAppBarState extends State<bottomAppBar> {
                     selectIndex = 1;
                   });
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.calendar_month,
                   size: 30,
                 )),
           ),
-          Spacer(flex: 3),
+          const Spacer(flex: 3),
           Container(
             height: 50,
             width: 60,
@@ -79,12 +80,12 @@ class _bottomAppBarState extends State<bottomAppBar> {
                     selectIndex = 2;
                   });
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.notifications_none_sharp,
                   size: 30,
                 )),
           ),
-          Spacer(flex: 2),
+          const Spacer(flex: 2),
           Container(
             height: 50,
             width: 60,
@@ -99,12 +100,12 @@ class _bottomAppBarState extends State<bottomAppBar> {
                     selectIndex = 3;
                   });
                 },
-                icon: Icon(
+                icon: const Icon(
                   FontAwesomeIcons.listCheck,
                   size: 30,
                 )),
           ),
-          Spacer(flex: 1),
+          const Spacer(flex: 1),
         ],
       ),
     ]);

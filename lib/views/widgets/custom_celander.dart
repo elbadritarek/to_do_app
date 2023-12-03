@@ -14,13 +14,13 @@ class _customCelanderState extends State<customCelander> {
   Widget build(BuildContext context) {
     return Stack(children: [
       AnimatedPositioned(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
           child: Container(
             height: 80,
             width: 1,
-            color: Color(0xffF4F27E),
-          ),
-          duration: Duration(milliseconds: 500),
-          curve: Curves.easeInOut),
+            color: const Color(0xffF4F27E),
+          )),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

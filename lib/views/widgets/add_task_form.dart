@@ -33,7 +33,7 @@ class _AddTaskFromState extends State<AddTaskFrom> {
       autovalidateMode: autovalidateMode,
       child: Column(children: [
         // SizedBox(height: 8),
-        Text(
+        const Text(
           "New Task",
           style: TextStyle(
               color: kprimary1Colour,
@@ -46,7 +46,7 @@ class _AddTaskFromState extends State<AddTaskFrom> {
             title = data;
           },
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         customTextFeild(
           hintText: "Descrption",
           maxLines: 5,
@@ -54,7 +54,7 @@ class _AddTaskFromState extends State<AddTaskFrom> {
             des = data;
           },
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Row(
           children: [
             CustomElevatedButton(
@@ -75,7 +75,7 @@ class _AddTaskFromState extends State<AddTaskFrom> {
                 }
               },
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             CustomElevatedButton(
@@ -94,7 +94,7 @@ class _AddTaskFromState extends State<AddTaskFrom> {
             ),
           ],
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         BlocBuilder<AddTaskCubit, AddTaskState>(
           builder: (context, state) {
             return CustomAddButton(

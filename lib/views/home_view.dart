@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:to_do_app/combons.dart';
-import 'package:to_do_app/cubits/cubit/notification_cubit.dart';
-import 'package:to_do_app/cubits/cubit/task_cubit.dart';
-import 'package:to_do_app/models/task_model.dart';
+import 'package:to_do_app/views/widgets/all_task_view_body.dart';
 import 'package:to_do_app/views/widgets/bottom_appbar.dart';
 import 'package:to_do_app/views/widgets/celander_view_body.dart';
 import 'package:to_do_app/views/widgets/custom_dielog.dart';
-import 'package:to_do_app/views/widgets/custom_task_item.dart';
+import 'package:to_do_app/views/widgets/notification_view_body.dart';
 
 import 'widgets/home_veiw_body.dart';
 
@@ -35,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
       // appBar: AppBar(backgroundColor: Colors.blue),
       body: PageView(
           controller: control,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: const [
             honeViewBody(),
             celanderViewBody(),
@@ -45,119 +39,18 @@ class _HomeViewState extends State<HomeView> {
       bottomNavigationBar: bottomAppBar(control: control),
       floatingActionButton: FloatingActionButton(
         backgroundColor: kprimary1Colour,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           showDialog(
             context: context,
             builder: (context) {
-              return customDielog();
+              return const customDielog();
             },
           );
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
-  }
-}
-
-class allTaskViewBody extends StatelessWidget {
-  const allTaskViewBody({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<TaskCubit, TaskState>(
-      builder: (context, state) {
-        List<TaskModel> taskList = BlocProvider.of<TaskCubit>(context).task!;
-        return Column(
-          children: [
-            coustomAppBar(icon: FontAwesomeIcons.listCheck, title: "All Task"),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: taskList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Slidable(
-                        endActionPane:
-                            ActionPane(motion: StretchMotion(), children: [
-                          SlidableAction(
-                            icon: Icons.delete,
-                            label: "delete",
-                            onPressed: (context) {
-                              var taskBox = Hive.box<TaskModel>(kTaskBox);
-                              taskBox.deleteAt(index);
-                              BlocProvider.of<TaskCubit>(context)
-                                  .fatchAllTask();
-                            },
-                          )
-                        ]),
-                        child: customTaskItem(
-                          taskModel: taskList[index],
-                        ));
-                  }),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class NotificationViewBody extends StatefulWidget {
-  const NotificationViewBody({super.key});
-
-  @override
-  State<NotificationViewBody> createState() => _NotificationViewBodyState();
-}
-
-class _NotificationViewBodyState extends State<NotificationViewBody> {
-  @override
-  void initState() {
-    BlocProvider.of<NotificationCubit>(context).fatchAllNotification();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        coustomAppBar(
-            icon: Icons.notifications_none_sharp, title: "Notification"),
-        Expanded(child: customListViewNotification()),
-      ],
-    );
-  }
-}
-
-class customListViewNotification extends StatelessWidget {
-  const customListViewNotification({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<NotificationCubit, NotificationState>(
-        builder: (context, state) {
-      List<TaskModel> taskList =
-          BlocProvider.of<NotificationCubit>(context).task!;
-      return ListView.builder(
-        itemCount: taskList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Slidable(
-              endActionPane: ActionPane(motion: StretchMotion(), children: [
-                SlidableAction(
-                  icon: Icons.delete,
-                  label: "delete",
-                  onPressed: (context) {
-                    var taskBox = Hive.box<TaskModel>(kNotificatonBox);
-                    taskBox.deleteAt(index);
-                    BlocProvider.of<NotificationCubit>(context)
-                        .fatchAllNotification();
-                  },
-                )
-              ]),
-              child: customTaskItem(
-                taskModel: taskList[index],
-              ));
-        },
-      );
-    });
   }
 }
 

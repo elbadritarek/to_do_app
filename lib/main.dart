@@ -31,7 +31,7 @@ class TodoApp extends StatelessWidget {
           create: (context) => NotificationCubit(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeView(),
       ),

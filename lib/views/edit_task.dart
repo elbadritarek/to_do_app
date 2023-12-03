@@ -10,7 +10,7 @@ class EdtiTaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kprimary2Colour,
-      appBar: AppBar(title: Text("Edit a Task")),
+      appBar: AppBar(title: const Text("Edit a Task")),
       body: EdtiTaskItemBody(taskModel: task),
     );
   }

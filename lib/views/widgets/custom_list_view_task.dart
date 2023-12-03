@@ -21,7 +21,8 @@ class customListViewTask extends StatelessWidget {
             itemCount: taskList.length,
             itemBuilder: (BuildContext context, int index) {
               return Slidable(
-                  endActionPane: ActionPane(motion: StretchMotion(), children: [
+                  endActionPane:
+                      ActionPane(motion: const StretchMotion(), children: [
                     SlidableAction(
                       icon: Icons.delete,
                       label: "delete",
@@ -37,7 +38,7 @@ class customListViewTask extends StatelessWidget {
                       ? customTaskItem(
                           taskModel: taskList[index],
                         )
-                      : SizedBox());
+                      : const SizedBox());
             });
       },
     );

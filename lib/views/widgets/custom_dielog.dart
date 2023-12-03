@@ -34,12 +34,13 @@ class customDielog extends StatelessWidget {
           return AbsorbPointer(
             absorbing: state is AddTaskLoading ? true : false,
             child: Dialog(
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8))),
               child: Container(
                 color: kprimary2Colour,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: SizedBox(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: const SizedBox(
                   height: 400,
                   width: 300,
                   child: SingleChildScrollView(child: AddTaskFrom()),

@@ -29,20 +29,20 @@ class _EdtiTaskItemBodyState extends State<EdtiTaskItemBody> {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           children: [
-            SizedBox(height: 120),
+            const SizedBox(height: 120),
             customTextFeild(
                 onChange: (value) {
                   title = value;
                 },
                 hintText: widget.taskModel.title),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             customTextFeild(
                 onChange: (value) {
                   des = value;
                 },
                 maxLines: 5,
                 hintText: widget.taskModel.descrption),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -64,7 +64,7 @@ class _EdtiTaskItemBodyState extends State<EdtiTaskItemBody> {
                     }
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 55,
                 ),
                 CustomElevatedButton(
@@ -83,7 +83,7 @@ class _EdtiTaskItemBodyState extends State<EdtiTaskItemBody> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             CustomAddButton(
               title: "DONE",
               onTap: () {
