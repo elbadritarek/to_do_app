@@ -30,7 +30,7 @@ class _honeViewBodyState extends State<honeViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        coustomAppBar(title: "ToDo App"),
+        coustomAppBar(icon: Icons.home, title: "ToDo App"),
         SizedBox(height: 5),
         customCelander(updateData: upDateDate),
         Expanded(
@@ -46,13 +46,15 @@ class coustomAppBar extends StatelessWidget {
   const coustomAppBar({
     super.key,
     required this.title,
+    required this.icon,
     /*required this.icon*/
   });
   final String title;
-  //final IconData icon;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: Icon(icon),
       title: Text(
         title,
         style: const TextStyle(

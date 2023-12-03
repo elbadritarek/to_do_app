@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:to_do_app/combons.dart';
 import 'package:to_do_app/cubits/cubit/notification_cubit.dart';
@@ -69,7 +70,7 @@ class allTaskViewBody extends StatelessWidget {
         List<TaskModel> taskList = BlocProvider.of<TaskCubit>(context).task!;
         return Column(
           children: [
-            coustomAppBar(title: "ALL TASK"),
+            coustomAppBar(icon: FontAwesomeIcons.listCheck, title: "All Task"),
             Expanded(
               child: ListView.builder(
                   itemCount: taskList.length,
@@ -118,7 +119,8 @@ class _NotificationViewBodyState extends State<NotificationViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        coustomAppBar(title: "NOTIFICATION"),
+        coustomAppBar(
+            icon: Icons.notifications_none_sharp, title: "Notification"),
         Expanded(child: customListViewNotification()),
       ],
     );

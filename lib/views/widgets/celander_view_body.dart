@@ -18,8 +18,9 @@ class _celanderViewBodyState extends State<celanderViewBody> {
     return Column(
       children: [
         coustomAppBar(
+            icon: Icons.calendar_month,
             title:
-                "celander :${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}"),
+                "Celander :${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}"),
         TableCalendar(
             firstDay: DateTime.utc(1900),
             lastDay: DateTime.utc(2100),

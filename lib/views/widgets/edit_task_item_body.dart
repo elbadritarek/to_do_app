@@ -59,7 +59,7 @@ class _EdtiTaskItemBodyState extends State<EdtiTaskItemBody> {
                     );
                     if (picked != null && picked != selectedDate) {
                       setState(() {
-                        selectedDate = picked;
+                        widget.taskModel.dateTime = picked;
                       });
                     }
                   },
@@ -76,7 +76,7 @@ class _EdtiTaskItemBodyState extends State<EdtiTaskItemBody> {
                         context: context, initialTime: selectedTime!);
                     if (picked != null && picked != selectedTime) {
                       setState(() {
-                        selectedTime = picked;
+                        widget.taskModel.time = picked;
                       });
                     }
                   },
