@@ -18,7 +18,7 @@ class celanderItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: isSelected ? const Color(0xff7B66FF) : Colors.white,
+            color: isSelected ? Colors.blueAccent : Colors.grey[200],
             borderRadius: const BorderRadius.all(Radius.circular(9))),
         height: 90,
         width: 50,
