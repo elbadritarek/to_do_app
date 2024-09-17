@@ -42,7 +42,7 @@ class celanderItem extends StatelessWidget {
             Text(
               DateFormat('MMMM').format(day),
               style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 9,
                   color: isSelected ? const Color(0xff96EFFF) : Colors.black),
             )
           ],
